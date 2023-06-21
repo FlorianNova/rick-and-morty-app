@@ -58,7 +58,7 @@ prevButton.addEventListener("click", () => {
 
 searchBar.addEventListener("submit", (event) => {
   event.preventDefault();
-  searchQuery = event.target.query;
+  searchQuery = event.target.elements.query.value;
   console.log(searchQuery);
   fetchCharacters();
 });
