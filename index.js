@@ -1,14 +1,13 @@
 import { createCharacterCard } from "./components/card/card.js";
+import { createPagination } from "./components/nav-pagination/nav-pagination.js";
+import { createButton } from "./components/nav-button/nav-button.js";
+import { createSearchBar } from "./components/search-bar/search-bar.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 let maxPage = 1;
@@ -23,15 +22,7 @@ async function fetchCharacters() {
     const data = await response.json();
     const results = data.results;
     maxPage = data.info.pages;
-    console.log(maxPage);
-
-    console.log(results);
-    console.log(data);
-    console.log(page);
-    // create Card
     cardContainer.innerHTML = "";
-    //update pagination
-    pagination.textContent = `${page} / ${maxPage}`;
 
     results.forEach((character) => {
       const newCard = createCharacterCard(character);
@@ -42,25 +33,35 @@ async function fetchCharacters() {
   }
 }
 
-nextButton.addEventListener("click", () => {
-  if (page < maxPage) {
-    page++;
-    fetchCharacters();
-  }
-});
-
-prevButton.addEventListener("click", () => {
+function onPrevButtonClick() {
   if (page > 1) {
     page--;
     fetchCharacters();
   }
-});
+}
 
-searchBar.addEventListener("submit", (event) => {
+function onNextButtonClick() {
+  if (page < maxPage) {
+    page++;
+    fetchCharacters();
+  }
+}
+
+function onSearchBarSubmit(event) {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
-  console.log(searchQuery);
   fetchCharacters();
-});
+}
+
+/* === Create UI Components === */
+const prevButton = createButton("prev", onPrevButtonClick);
+const nextButton = createButton("next", onNextButtonClick);
+const pagination = createPagination(page, maxPage);
+const searchBar = createSearchBar(searchBarContainer, onSearchBarSubmit);
+
+/* === Append UI Components to container & navigation === */
+console.log(searchBarContainer);
+searchBarContainer.append(searchBar);
+navigation.append(prevButton, nextButton, pagination);
 
 fetchCharacters();
