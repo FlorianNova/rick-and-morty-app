@@ -33,8 +33,6 @@ async function fetchCharacters() {
     //update pagination
     pagination.textContent = `${page} / ${maxPage}`;
 
-    // teilschritte 1. append 2. create Character Card 3. was kommt in die Funktion rein
-    // 4. wie werden mehrere Karten erstellt? 5.
     results.forEach((character) => {
       const newCard = createCharacterCard(character);
       cardContainer.append(newCard);
@@ -50,14 +48,12 @@ nextButton.addEventListener("click", () => {
     fetchCharacters();
   }
 });
-// geht eine Seite vor -> page +1 , if page > maxPage dann nicht mehr +1
 
 prevButton.addEventListener("click", () => {
   if (page > 1) {
     page--;
     fetchCharacters();
   }
-  // geht eine Seite zurück -> page -1, if page < minPage dann nicht mehr -1
 });
 
 fetchCharacters();
