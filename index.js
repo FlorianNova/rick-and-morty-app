@@ -18,11 +18,11 @@ const searchQuery = "";
 async function fetchCharacters() {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}`
+      `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`
     );
     const data = await response.json();
     const results = data.results;
-    let maxPage = data.info.pages;
+    maxPage = data.info.pages;
     console.log(maxPage);
 
     console.log(results);
@@ -55,5 +55,11 @@ prevButton.addEventListener("click", () => {
     fetchCharacters();
   }
 });
+
+searchBar.addEventListener("submit"),
+  () => {
+    searchQuery = searchBar.value;
+    fetchCharacters();
+  };
 
 fetchCharacters();
