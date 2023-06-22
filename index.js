@@ -57,10 +57,10 @@ function onSearchBarSubmit(event) {
 const prevButton = createButton("prev", onPrevButtonClick);
 const nextButton = createButton("next", onNextButtonClick);
 const pagination = createPagination(page, maxPage);
-const searchBar = createSearchBar(searchBarContainer, onSearchBarSubmit);
+const searchBar = createSearchBar("Suche nach Charakteren", onSearchBarSubmit);
 
 /* === Append UI Components to container & navigation === */
-console.log(searchBarContainer);
+//console.log(searchBarContainer);
 searchBarContainer.append(searchBar);
 navigation.append(prevButton, nextButton, pagination);
 

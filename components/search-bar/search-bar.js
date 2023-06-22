@@ -1,12 +1,12 @@
-export function createSearchBar(searchBarContainer, onSubmit) {
-  const form = document.createElement("form");
-  form.classList.add("search-bar");
-  form.addEventListener("submit", onSubmit);
+export function createSearchBar(text, onSubmit) {
+  const searchBar = document.createElement("form");
+  searchBar.classList.add("search-bar");
+  searchBar.addEventListener("submit", onSubmit);
 
   const input = document.createElement("input");
   input.name = "query";
   input.type = "text";
-  input.placeholder = "search characters";
+  input.placeholder = text;
   input.setAttribute("aria-label", "character name");
 
   const button = document.createElement("button");
@@ -18,12 +18,12 @@ export function createSearchBar(searchBarContainer, onSubmit) {
   icon.src = "assets/magnifying-glass.png";
   icon.alt = "searchicon";
 
-  searchBarContainer.append(form);
-  form.append(input);
-  form.append(button);
+  //searchBarContainer.append(form);
+  searchBar.append(input);
+  searchBar.append(button);
   button.append(icon);
 
-  return searchBarContainer;
+  return searchBar;
 }
 
 /* <div class="search-bar-container" data-js="search-bar-container">
