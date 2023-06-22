@@ -22,7 +22,9 @@ async function fetchCharacters() {
     const data = await response.json();
     const results = data.results;
     maxPage = data.info.pages;
+
     cardContainer.innerHTML = "";
+    pagination.textContent = `${page} / ${maxPage}`;
 
     results.forEach((character) => {
       const newCard = createCharacterCard(character);
@@ -62,6 +64,6 @@ const searchBar = createSearchBar("Suche nach Charakteren", onSearchBarSubmit);
 /* === Append UI Components to container & navigation === */
 //console.log(searchBarContainer);
 searchBarContainer.append(searchBar);
-navigation.append(prevButton, nextButton, pagination);
+navigation.append(prevButton, pagination, nextButton);
 
 fetchCharacters();
